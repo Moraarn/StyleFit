@@ -1,3 +1,7 @@
+"use client"
+
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import { Share2, Download, Bookmark } from "lucide-react"
@@ -8,8 +12,44 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import ClothingRecommendation from "@/components/clothing-recommendation"
 
 export default function ResultsPage() {
-  // In a real app, this would be dynamic based on quiz results
-  const bodyType = "Hourglass"
+  // In the component function, add:
+  const router = useRouter()
+  const [bodyType, setBodyType] = useState<string>("Hourglass")
+  const [answers, setAnswers] = useState<Record<number, string>>({})
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    // Retrieve quiz answers and body type from localStorage
+    const storedAnswers = localStorage.getItem("quizAnswers")
+    const storedBodyType = localStorage.getItem("bodyType")
+
+    if (storedBodyType) {
+      setBodyType(storedBodyType)
+    }
+
+    if (storedAnswers) {
+      setAnswers(JSON.parse(storedAnswers))
+    } else {
+      // If no answers found, redirect back to quiz
+      router.push("/quiz")
+    }
+
+    setLoading(false)
+  }, [router])
+
+  // Replace the hardcoded bodyType with the state variable
+  // And add a loading state
+  // Add this at the beginning of the return statement:
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-pink-50 to-white">
+        <div className="text-center">
+          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-pink-400 border-r-transparent"></div>
+          <p className="mt-4 text-gray-600">Loading your results...</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -263,7 +303,7 @@ export default function ResultsPage() {
                       <div className="text-center">
                         <div className="relative h-[150px] w-[150px] mx-auto rounded-full overflow-hidden mb-3">
                           <Image
-                            src="/placeholder.svg?height=150&width=150&text=Celebrity"
+                            src="https://i.pinimg.com/736x/31/e3/80/31e380b114a505950064e21431f3c07d.jpg"
                             alt="Celebrity with hourglass figure"
                             fill
                             className="object-cover"
@@ -274,7 +314,7 @@ export default function ResultsPage() {
                       <div className="text-center">
                         <div className="relative h-[150px] w-[150px] mx-auto rounded-full overflow-hidden mb-3">
                           <Image
-                            src="/placeholder.svg?height=150&width=150&text=Celebrity"
+                            src="https://i.pinimg.com/736x/82/8d/fc/828dfcebba5e156b9d16587d9ed5c9fa.jpg"
                             alt="Celebrity with hourglass figure"
                             fill
                             className="object-cover"
@@ -285,7 +325,7 @@ export default function ResultsPage() {
                       <div className="text-center">
                         <div className="relative h-[150px] w-[150px] mx-auto rounded-full overflow-hidden mb-3">
                           <Image
-                            src="/placeholder.svg?height=150&width=150&text=Celebrity"
+                            src="https://i.pinimg.com/736x/1e/4d/ee/1e4deeafab1a920330ea82018c5319b1.jpg"
                             alt="Celebrity with hourglass figure"
                             fill
                             className="object-cover"
@@ -296,7 +336,7 @@ export default function ResultsPage() {
                       <div className="text-center">
                         <div className="relative h-[150px] w-[150px] mx-auto rounded-full overflow-hidden mb-3">
                           <Image
-                            src="/placeholder.svg?height=150&width=150&text=Celebrity"
+                            src="https://i.pinimg.com/736x/22/2e/d5/222ed54a5ff0e18d94b68086250beb0c.jpg"
                             alt="Celebrity with hourglass figure"
                             fill
                             className="object-cover"

@@ -4,6 +4,7 @@ import { useState } from "react"
 import Image from "next/image"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import Footer from "@/components/footer"
+import { useRouter } from "next/navigation"
 
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
@@ -71,18 +72,22 @@ export default function QuizPage() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null)
 
   const progress = ((currentQuestion + 1) / questions.length) * 100
+  const router = useRouter()
 
   const handleNext = () => {
     if (selectedOption) {
-      setAnswers({ ...answers, [questions[currentQuestion].id]: selectedOption })
+      const updatedAnswers = { ...answers, [questions[currentQuestion].id]: selectedOption }
+      setAnswers(updatedAnswers)
 
       if (currentQuestion < questions.length - 1) {
         setCurrentQuestion(currentQuestion + 1)
-        setSelectedOption(answers[questions[currentQuestion + 1]?.id] || null)
+        setSelectedOption(updatedAnswers[questions[currentQuestion + 1]?.id] || null)
       } else {
-        // Navigate to results page
-        console.log("Quiz completed", answers)
-        // In a real app, you would redirect to results page with the answers
+        // Navigate to results page with the answers
+        const bodyType = determineBodyType(updatedAnswers)
+        localStorage.setItem("quizAnswers", JSON.stringify(updatedAnswers))
+        localStorage.setItem("bodyType", bodyType)
+        router.push("/results")
       }
     }
   }
@@ -95,6 +100,40 @@ export default function QuizPage() {
   }
 
   const currentQ = questions[currentQuestion]
+
+  const determineBodyType = (answers: Record<number, string>) => {
+    // Count the frequency of each answer type
+    const counts = { a: 0, b: 0, c: 0, d: 0 }
+
+    Object.values(answers).forEach((answer) => {
+      if (counts[answer as keyof typeof counts] !== undefined) {
+        counts[answer as keyof typeof counts]++
+      }
+    })
+
+    // Determine the most frequent answer
+    let maxCount = 0
+    let bodyType = "Hourglass"
+
+    if (counts.a > maxCount) {
+      maxCount = counts.a
+      bodyType = "Hourglass"
+    }
+    if (counts.b > maxCount) {
+      maxCount = counts.b
+      bodyType = "Pear"
+    }
+    if (counts.c > maxCount) {
+      maxCount = counts.c
+      bodyType = "Rectangle"
+    }
+    if (counts.d > maxCount) {
+      maxCount = counts.d
+      bodyType = "Inverted Triangle"
+    }
+
+    return bodyType
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -117,7 +156,7 @@ export default function QuizPage() {
                     </span>
                     <span>{Math.round(progress)}% Complete</span>
                   </div>
-                  <Progress value={progress} className="h-2 bg-gray-100" indicatorClassName="bg-pink-400" />
+                  <Progress value={progress} className="h-2 bg-gray-100"  />
                 </div>
 
                 <h2 className="text-xl md:text-2xl font-semibold mb-6">{currentQ.question}</h2>

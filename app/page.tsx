@@ -34,7 +34,7 @@ export default function Home() {
       {/* Hero Section with Full Screen Background */}
       <section className="relative min-h-screen flex flex-col">
         <Image
-          src="https://i.pinimg.com/736x/b8/e6/47/b8e647767a8c36cf25030d11240f4960.jpg"
+          src="https://i.pinimg.com/736x/bf/fb/c0/bffbc0d52c9cdbc4bd418b5875639c0d.jpg"
           alt="Stylish woman"
           fill
           className="object-cover z-0"
@@ -56,12 +56,16 @@ export default function Home() {
               enhance your natural silhouette.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-pink-500 hover:bg-white/90 border-0">
-                Take the Quiz <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-                Learn More
-              </Button>
+              <Link href="/quiz">
+                <Button size="lg" className=" text-primary bg-background border-0">
+                  Take the Quiz <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              <Link href="/body-types">
+                <Button size="lg" className="border-white  text-black ">
+                  Learn More
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -69,7 +73,7 @@ export default function Home() {
         {/* Scroll indicator */}
         <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
           <svg
-            className="w-6 h-6 text-white"
+            className="w-6 h-6 "
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -81,11 +85,11 @@ export default function Home() {
       </section>
 
       {/* How It Works */}
-      <section className="py-20 bg-white dark:bg-gray-900">
+      <section className="py-20 ">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col items-center text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">How StyleFit Works</h2>
-            <p className="text-gray-600 dark:text-gray-300 max-w-2xl">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 ">How StyleFit Works</h2>
+            <p className="max-w-2xl">
               Our simple 3-step process helps you discover your body type and find clothing that enhances your natural
               beauty.
             </p>
@@ -113,9 +117,11 @@ export default function Home() {
           </div>
 
           <div className="mt-16 text-center">
-            <Button size="lg" className="bg-pink-400 hover:bg-pink-500 text-white">
-              Start Your Style Journey
-            </Button>
+            <Link href="/quiz">
+              <Button size="lg" className="bg-pink-400 hover:bg-pink-500 text-white">
+                Start Your Style Journey
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -137,17 +143,17 @@ export default function Home() {
             <BodyTypeCard
               type="Hourglass"
               description="Balanced bust and hips with a defined waist"
-              imageSrc="https://i.pinimg.com/736x/ed/df/a3/eddfa39a50cae2502c51bb8b1b88096c.jpg"
+              imageSrc="https://i.pinimg.com/236x/ce/60/bd/ce60bd15471c962fe1f1ec15c8de22f4.jpg"
             />
             <BodyTypeCard
               type="Pear"
               description="Hips wider than shoulders with a defined waist"
-              imageSrc="https://i.pinimg.com/736x/aa/5e/4c/aa5e4c6ed23450966fc9f4ce6ae9d144.jpg"
+              imageSrc="https://i.pinimg.com/236x/65/33/20/6533204aeac64d99fb0f40a44555d63c.jpg"
             />
             <BodyTypeCard
               type="Rectangle"
               description="Shoulders, waist and hips of similar width"
-              imageSrc="https://i.pinimg.com/736x/d8/e4/11/d8e411e4cbe4f994d5c3b63cbf0efd37.jpg"
+              imageSrc="https://i.pinimg.com/736x/8a/7a/dd/8a7add34d396d9ef4ffa3e7ed78599d9.jpg"
             />
             <BodyTypeCard
               type="Inverted Triangle"
@@ -206,9 +212,11 @@ export default function Home() {
                 </li>
               </ul>
               <div className="pt-4">
-                <Button size="lg" className="bg-pink-400 hover:bg-pink-500 text-white">
-                  Start the Quiz
-                </Button>
+                <Link href="/quiz">
+                  <Button size="lg" className="bg-pink-400 hover:bg-pink-500 text-white">
+                    Start the Quiz
+                  </Button>
+                </Link>
               </div>
             </div>
             <div className="bg-pink-50 dark:bg-gray-800 p-6 rounded-lg">
@@ -316,9 +324,11 @@ export default function Home() {
               Take our quick quiz to find your body type and get personalized clothing recommendations that will
               transform your wardrobe.
             </p>
-            <Button size="lg" className="bg-white text-pink-500 hover:bg-white/90">
-              Take the Quiz Now
-            </Button>
+            <Link href="/quiz">
+              <Button size="lg" className="bg-white text-pink-500 hover:bg-white/90">
+                Take the Quiz Now
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
